@@ -13,8 +13,7 @@
 		"--gpus",
 		"all",
 		"-v",
-		"${localEnv:DATAHOME}/loss-landscape/trained_nets:/workspaces/loss-landscape/src/trained_nets",
-		"-v",
+		"${localEnv:DATAHOME}/loss-landscape/trained_nets:/workspaces/loss-landscape/src/trained_nets"
 	],
 	"remoteEnv": {"PYTHONPATH": "${containerEnv:PATH}:/workspaces/loss-landscape/src"},
 	
