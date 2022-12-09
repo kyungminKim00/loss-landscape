@@ -18,7 +18,7 @@ RUN apt-get -q update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y tzdata \
+RUN apt-get install -y tzdata \
     && apt-get install -y \
     git vim-nox tree openssh-server \
     && apt-get autoremove -y
