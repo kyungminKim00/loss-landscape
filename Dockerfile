@@ -18,9 +18,7 @@ RUN apt-get -q update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get install -y tzdata \
-    && apt-get install -y \
-    git vim-nox tree openssh-server \
+RUN apt-get install -y git vim-nox tree openssh-server \
     && apt-get autoremove -y
 
 ADD https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.2.tar.bz2 .
