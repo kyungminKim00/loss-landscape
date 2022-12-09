@@ -6,3 +6,4 @@ ray
 sklearn
 scikit-learn
 seaborn
+mpi4py==3.0.3
