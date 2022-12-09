@@ -1,4 +1,3 @@
-openmpi
 mpi4py
 numpy
 h5py
