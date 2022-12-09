@@ -3,3 +3,6 @@ h5py
 matplotlib
 scipy
 ray
+sklearn
+scikit-learn
+seaborn
