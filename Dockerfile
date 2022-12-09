@@ -7,8 +7,8 @@ COPY . .
 
 RUN apt-get -q update && apt-get upgrade -y
 RUN apt-get install -y --no-install-recommends apt-utils
-RUN apt-get install -y cmake gcc gfortran libopenmpi-dev openmpi-bin openmpi-common openmpi-doc binutils
-RUN apt-get install -y git vim-nox tree openssh-server zlib1g-dev libcairo2-dev python3-mpi4py
+RUN apt-get install -y cmake libopenmpi-dev zlib1g-dev libcairo2-dev
+RUN apt-get install -y git vim-nox tree openssh-server 
 RUN python3 -m pip install --upgrade pip
 RUN apt-get autoremove -y
 
