@@ -10,6 +10,7 @@ RUN apt-get install -y git vim-nox tree openssh-server
 RUN apt-get autoremove -y
 
 RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install mpi4py
 RUN pip3 install --no-cache-dir -r /dev_env/requirements.txt
 RUN pip3 install --no-cache-dir -r /dev_env/ci_requirements.txt
 
