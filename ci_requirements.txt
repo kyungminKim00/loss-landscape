@@ -1,5 +1,4 @@
 pylint
-mypy==0.971
 isort==5.10.1
 pytest
 black
