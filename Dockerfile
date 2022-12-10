@@ -15,7 +15,8 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ADD https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.2.tar.gz .
 RUN tar -zxvf openmpi-3.1.2.tar.gz
 RUN cd openmpi-3.1.2 && ./configure --prefix=$MPI_DIR
-RUN make -j8 all && make install
+RUN make -j4 all
+RUN make install
 RUN cd .. && rm -rf openmpi-3.1.2 openmpi-3.1.2.tar.gz /tmp/*
 
 RUN groupadd -r mpitest \
