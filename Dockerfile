@@ -20,6 +20,12 @@ RUN apt-get -q update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
+    && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+RUN chmod 700 /etc/ssh
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 ADD https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.bz2 .
 RUN tar xf openmpi-3.1.4.tar.bz2 \
     && cd openmpi-3.1.4 \
@@ -28,11 +34,6 @@ RUN tar xf openmpi-3.1.4.tar.bz2 \
     && make install \
     && cd .. && rm -rf \
     openmpi-3.1.4 openmpi-3.1.4.tar.bz2 /tmp/*
-RUN ln -s /usr/bin/python3 /usr/bin/python
-
-RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
-    && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 RUN groupadd -r mpitest \
     && useradd -r -g mpitest $USER \
