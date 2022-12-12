@@ -23,6 +23,7 @@ RUN apt-get -q update \
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+RUN service ssh start
 RUN chmod 700 /etc/ssh
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
@@ -46,7 +47,5 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user torch torchvision
-
-RUN echo "service ssh start" >> $HOME/.bashrc
 
 EXPOSE 22
