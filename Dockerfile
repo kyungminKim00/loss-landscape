@@ -45,7 +45,7 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user torch
 
-RUN echo "service ssh start" >> /root/.bashrc
+RUN echo "service ssh start" >> $HOME/.bashrc
 RUN passwd -d root
 
 EXPOSE 22
