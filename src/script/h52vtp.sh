@@ -1,0 +1,1 @@
+python h52vtp.py --surf_file path_to_surf_file --surf_name train_loss --zmax  10 --log
