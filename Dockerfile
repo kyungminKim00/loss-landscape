@@ -3,7 +3,6 @@
 # >> mpirun --version
 
 FROM ubuntu:18.04
-# FROM ubuntu:20.04
 
 ENV USER mpitest
 ENV HOME /home/$USER
@@ -16,7 +15,7 @@ COPY . .
 RUN apt-get -q update \
     && apt-get install -y \
     python3 python3-dev python3-pip \
-    gcc gfortran binutils openssh-server \
+    gcc gfortran binutils openssh-server git \
     && pip3 install --upgrade pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
