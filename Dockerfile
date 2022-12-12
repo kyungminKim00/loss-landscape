@@ -28,6 +28,7 @@ RUN tar xf openmpi-3.1.4.tar.bz2 \
     && make install \
     && cd .. && rm -rf \
     openmpi-3.1.4 openmpi-3.1.4.tar.bz2 /tmp/*
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
@@ -36,6 +37,7 @@ RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_
 RUN groupadd -r mpitest \
     && useradd -r -g mpitest $USER \
     && chown -R mpitest:mpitest $HOME
+RUN chsh -s /bin/bash mpitest
 
 USER $USER
 RUN pip3 install --user -U setuptools \
