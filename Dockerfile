@@ -46,6 +46,5 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user torch
 
 RUN echo "service ssh start" >> $HOME/.bashrc
-RUN passwd -d $USER
 
 EXPOSE 22
