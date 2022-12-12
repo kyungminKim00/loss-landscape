@@ -41,8 +41,8 @@ RUN groupadd -r mpitest \
 USER $USER
 RUN pip3 install --user -U setuptools \
     && pip3 install --user mpi4py \
-    && pip3 install --user --no-cache-dir -r /dev_env/requirements.txt \
-    && pip3 install --user --no-cache-dir -r /dev_env/ci_requirements.txt \
+    && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
+    && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user torch
 
 RUN echo "service ssh start" >> /root/.bashrc
