@@ -2,8 +2,8 @@
 # >> mpiexec --version 
 # >> mpirun --version
 
-# FROM ubuntu:18.04
-FROM ubuntu:20.04
+FROM ubuntu:18.04
+# FROM ubuntu:20.04
 
 ENV USER mpitest
 ENV HOME /home/$USER
