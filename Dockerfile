@@ -5,11 +5,11 @@ ENV HOME /home/$USER
 ENV MPI_DIR=/opt/ompi
 ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
-RUN DEBIAN_FRONTEND=noninteractive TZ=Asia/Seoul
 WORKDIR $HOME
 COPY . .
 
 RUN echo root:admin | chpasswd
+RUN DEBIAN_FRONTEND=noninteractive TZ=Asia/Seoul apt-get -y install tzdata
 RUN apt-get -q update && apt-get upgrade -y \ 
     && apt-get install -y \
     curl gcc gfortran binutils \
