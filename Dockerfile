@@ -8,7 +8,7 @@ ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 WORKDIR $HOME
 COPY . .
 
-RUN echo 'Docker!' | passwd -q admin
+RUN echo root:admin | chpasswd
 RUN apt-get -q update && apt-get upgrade \ 
     && apt-get install -y \
     curl gcc gfortran binutils \
