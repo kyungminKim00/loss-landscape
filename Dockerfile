@@ -5,6 +5,7 @@ ENV HOME /home/$USER
 ENV MPI_DIR=/opt/ompi
 ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
+RUN DEBIAN_FRONTEND=noninteractive TZ=Asia/Seoul
 WORKDIR $HOME
 COPY . .
 
