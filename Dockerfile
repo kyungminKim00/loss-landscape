@@ -60,6 +60,6 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user torch torchvision
 # RUN echo service ssh start >> $HOME/.bashrc
-RUN echo "export VISIBLE=now" >> /etc/profile
+RUN echo export VISIBLE=now >> $HOME/.bashrc
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
