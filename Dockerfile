@@ -12,6 +12,7 @@ ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 WORKDIR $HOME
 COPY . .
 
+RUN echo 'Docker!' | passwd --stdin admin
 RUN apt-get -q update \
     && apt-get install -y \
     python3 python3-dev python3-pip \
