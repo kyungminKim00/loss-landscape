@@ -22,6 +22,8 @@ RUN apt-get -q update && apt-get upgrade -y \
 RUN add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
     python3.9 python3.9-dev python3.9-distutils
+RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
+    && apt-get upgrade libstdc++6 -y
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
