@@ -5,8 +5,10 @@ ENV HOME /home/$USER
 ENV MPI_DIR=/opt/ompi
 ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
-ARG DEBIAN_FRONTEND="noninteractive" 
-ARG TZ=Asia/Seoul
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Moscow
+RUN apt-get install -y tzdata
 
 WORKDIR $HOME
 COPY . .
