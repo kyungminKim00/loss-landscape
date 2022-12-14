@@ -1,10 +1,6 @@
-# Test mpi
-# >> mpiexec --version 
-# >> mpirun --version
-
 FROM ubuntu:18.04
 
-ENV USER mpitest
+ENV USER dev_env
 ENV HOME /home/$USER
 ENV MPI_DIR=/opt/ompi
 ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
@@ -44,10 +40,10 @@ RUN tar xf openmpi-3.1.4.tar.bz2 \
     && cd .. && rm -rf \
     openmpi-3.1.4 openmpi-3.1.4.tar.bz2 /tmp/*
 
-RUN groupadd -r mpitest \
-    && useradd -r -g mpitest $USER \
-    && chown -R mpitest:mpitest $HOME
-RUN chsh -s /bin/bash mpitest
+RUN groupadd -r dev_env \
+    && useradd -r -g dev_env $USER \
+    && chown -R dev_env:dev_env $HOME
+RUN chsh -s /bin/bash dev_env
 
 USER $USER
 RUN pip3 install --user -U setuptools \
