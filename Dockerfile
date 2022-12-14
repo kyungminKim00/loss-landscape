@@ -13,20 +13,26 @@ WORKDIR $HOME
 COPY . .
 
 RUN echo 'Docker!' | passwd --stdin admin
-RUN apt-get -q update \
+RUN apt-get -q update && apt-get upgrade \ 
+    && apt-get install -y software-properties-common \
+    && add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
-    python3 python3-dev python3-pip \
+    curl python3.9 python3.9-dev python3.9-distutils \
     gcc gfortran binutils openssh-server git \
     && pip3 install --upgrade pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python3.9 get-pip.py
 
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 RUN service ssh start
 RUN chmod 700 /etc/ssh
-RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN ln -s /usr/bin/python3.9/usr/bin/python
 
 ADD https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.bz2 .
 RUN tar xf openmpi-3.1.4.tar.bz2 \
