@@ -7,18 +7,19 @@ ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Seoul
+# openmpi-3.1.4
+ENV OMPI_V=openmpi-4.1.4  
 
 WORKDIR $HOME
 COPY . .
 
 RUN echo root:admin | chpasswd
-
-RUN apt-get -q update && apt-get upgrade -y\ 
-    && apt-get install -yq --no-install-recommends \
-    apt-utils curl tzdata vim less gcc gfortran binutils openssh-server git
+RUN apt-get -q update && apt-get upgrade -y \ 
+    && apt-get install -yq apt-utils curl tzdata \ 
+    vim less gcc gfortran binutils openssh-server \
+    git software-properties-common
     
-RUN apt-get install -y software-properties-common \
-    && add-apt-repository --yes ppa:deadsnakes/ppa \
+RUN add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
     python3.9 python3.9-dev python3.9-distutils
 RUN apt-get clean \
@@ -35,14 +36,14 @@ RUN service ssh start
 RUN chmod 700 /etc/ssh
 RUN ln -s /usr/bin/python3.9/usr/bin/python
 
-ADD https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.bz2 .
-RUN tar xf openmpi-3.1.4.tar.bz2 \
-    && cd openmpi-3.1.4 \
+ADD https://download.open-mpi.org/release/open-mpi/v4.1/$OMPI_V.tar.bz2 .
+RUN tar xf $OMPI_V.tar.bz2 \
+    && cd $OMPI_V \
     && ./configure --prefix=$MPI_DIR \
     && make -j4 all \
     && make install \
     && cd .. && rm -rf \
-    openmpi-3.1.4 openmpi-3.1.4.tar.bz2 /tmp/*
+    $OMPI_V $OMPI_V.tar.bz2 /tmp/*
 
 RUN groupadd -r dev_env \
     && useradd -r -g dev_env $USER \
