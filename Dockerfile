@@ -24,7 +24,7 @@ RUN apt-get -q update && apt-get upgrade -y \
 #     python3.9 python3.9-dev python3.9-distutils
 
 RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
-    && apt-get update && apt-get install gcc-4.9 \
+    && apt-get update \
     && apt-get install --only-upgrade libstdc++6
     
 RUN apt-get clean \
