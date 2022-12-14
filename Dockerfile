@@ -9,7 +9,7 @@ WORKDIR $HOME
 COPY . .
 
 RUN echo root:admin | chpasswd
-RUN apt-get -q update && apt-get upgrade \ 
+RUN apt-get -q update && apt-get upgrade -y \ 
     && apt-get install -y \
     curl gcc gfortran binutils \
     openssh-server git
