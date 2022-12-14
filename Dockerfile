@@ -17,7 +17,7 @@ RUN echo root:admin | chpasswd
 RUN apt-get -q update && apt-get upgrade -y \ 
     && apt-get install -yq apt-utils curl tzdata \ 
     vim less gcc g++ gfortran binutils openssh-server \
-    git software-properties-common
+    git software-properties-common make
     
 RUN add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
