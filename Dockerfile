@@ -5,15 +5,17 @@ ENV HOME /home/$USER
 ENV MPI_DIR=/opt/ompi
 ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
+ARG DEBIAN_FRONTEND="noninteractive" 
+ARG TZ=Asia/Seoul
+
 WORKDIR $HOME
 COPY . .
 
 RUN echo root:admin | chpasswd
-RUN DEBIAN_FRONTEND=noninteractive TZ=Asia/Seoul apt-get -y install tzdata
-RUN apt-get -q update && apt-get upgrade -y \ 
-    && apt-get install -y \
-    curl gcc gfortran binutils \
-    openssh-server git
+RUN apt-get install -yq --no-install-recommends tzdata
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+    apt-utils curl tzdata vim less gcc gfortran binutils openssh-server git
+    
 RUN apt-get install -y software-properties-common \
     && add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
