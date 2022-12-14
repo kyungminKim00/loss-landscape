@@ -7,7 +7,7 @@ ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Europe/Moscow
+ENV TZ=Asia/Seoul
 RUN apt-get install -y tzdata
 
 WORKDIR $HOME
