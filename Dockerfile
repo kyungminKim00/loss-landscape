@@ -36,7 +36,7 @@ RUN apt-get clean \
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
-RUN mkdir -p /var/run/sshd && chmod 700 /var/run/sshd && chmod 700 /etc/ssh
+RUN mkdir -p /var/run/sshd && chmod 755 /var/run/sshd && chmod 755 -R /etc/ssh
 # RUN ln -s /usr/bin/python3.9/usr/bin/python
 
 ADD https://download.open-mpi.org/release/open-mpi/v4.1/$OMPI_V.tar.bz2 .
