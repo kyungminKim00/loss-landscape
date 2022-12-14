@@ -8,7 +8,6 @@ ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Seoul
-# openmpi-3.1.4
 ENV OMPI_V=openmpi-4.1.4  
 
 WORKDIR $HOME
@@ -33,9 +32,8 @@ RUN python3.9 get-pip.py
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
-RUN service ssh start
 RUN chmod 700 /etc/ssh
-RUN ln -s /usr/bin/python3.9/usr/bin/python
+# RUN ln -s /usr/bin/python3.9/usr/bin/python
 
 ADD https://download.open-mpi.org/release/open-mpi/v4.1/$OMPI_V.tar.bz2 .
 RUN tar xf $OMPI_V.tar.bz2 \
@@ -57,5 +55,6 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user torch torchvision
+RUN echo service ssh start >> $HOME/.bashrc
 
 EXPOSE 22
