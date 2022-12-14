@@ -22,8 +22,8 @@ RUN apt-get -q update && apt-get upgrade -y \
 RUN add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
     python3.9 python3.9-dev python3.9-distutils
-RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
-    && apt-get upgrade libstdc++6 -y
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get update && apt-get upgrade libstdc++6 -y
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -34,7 +34,7 @@ RUN python3.9 get-pip.py
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
-RUN chmod 700 /etc/ssh
+RUN mkdir -p /var/run/sshd && chmod 700 /var/run/sshd
 # RUN ln -s /usr/bin/python3.9/usr/bin/python
 
 ADD https://download.open-mpi.org/release/open-mpi/v4.1/$OMPI_V.tar.bz2 .
@@ -57,6 +57,7 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user torch torchvision
-RUN echo service ssh start >> $HOME/.bashrc
-
+# RUN echo service ssh start >> $HOME/.bashrc
+RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
