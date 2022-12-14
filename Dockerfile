@@ -19,17 +19,19 @@ RUN apt-get -q update && apt-get upgrade -y \
     vim less gcc g++ gfortran binutils openssh-server \
     git software-properties-common make
     
-RUN add-apt-repository --yes ppa:deadsnakes/ppa \
-    && apt-get install -y \
-    python3.9 python3.9-dev python3.9-distutils
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test \
+# RUN add-apt-repository --yes ppa:deadsnakes/ppa \
+#     && apt-get install -y \
+#     python3.9 python3.9-dev python3.9-distutils
+
+RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
     && apt-get update && apt-get upgrade libstdc++6 -y
+    
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN update-alternatives --install /usr/bin/python python3 /usr/bin/python3.9 1
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-RUN python3.9 get-pip.py    
+# RUN update-alternatives --install /usr/bin/python python3 /usr/bin/python3.9 1
+# RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+# RUN python3.9 get-pip.py    
 
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
