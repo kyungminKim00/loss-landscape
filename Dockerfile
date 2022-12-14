@@ -12,7 +12,7 @@ RUN echo root:admin | chpasswd
 RUN apt-get -q update && apt-get upgrade \ 
     && apt-get install -y \
     curl gcc gfortran binutils \
-    openssh-server git \
+    openssh-server git
 RUN apt-get install -y software-properties-common \
     && add-apt-repository --yes ppa:deadsnakes/ppa \
     && apt-get install -y \
