@@ -2,6 +2,10 @@
 # torch & torchvision spec - https://download.pytorch.org/whl/torch_stable.html
 # tensorflow spec - https://www.tensorflow.org/install/source
 
+# install custom stable version
+# pip install torch===1.11.0+cu115 -f https://download.pytorch.org/whl/torch_stable.html
+# pip install torchvision===0.12.0+cu115 -f https://download.pytorch.org/whl/torch_stable.html
+
 # FROM rapidsai/rapidsai-core:22.08-cuda11.2-runtime-ubuntu18.04-py3.9
 FROM nvcr.io/nvidia/rapidsai/rapidsai-core:22.10-cuda11.5-base-ubuntu20.04-py3.9
 
@@ -57,10 +61,8 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user --no-cache-dir torch==1.11.0 torchvision==0.12.0 gym==0.11.0 tensorboard
+    # && pip3 install --user --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cu112 \
     
-    # && pip3 install --user --no-cache-dir torch==1.11.0 --extra-index-url https://download.pytorch.org/whl/cu112 \
-    # pip install torch===1.11.0+cu115 -f https://download.pytorch.org/whl/torch_stable.html
-    # pip install torchvision===0.12.0+cu115 -f https://download.pytorch.org/whl/torch_stable.html
     
 RUN echo service ssh start >> $HOME/.bashrc
 RUN echo $INGREDIENTS
