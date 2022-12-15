@@ -6,5 +6,5 @@ if [ "$res" == " * sshd is not running" ];
 then
         service ssh start
 else
-        echo "my sshd is running"
+        echo " * sshd is running"
 fi
