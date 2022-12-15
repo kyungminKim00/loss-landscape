@@ -64,7 +64,7 @@
 			"--verbose"
 		],
 		"python.testing.autoTestDiscoverOnSaveEnabled": true,
-		"python.sortImports.args": [
+		"python.isort.args": [
 			"--profile", "black"
 		],
 		"python.languageServer": "Pylance",
