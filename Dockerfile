@@ -139,7 +139,8 @@ RUN pip3 install setuptools \
     && pip3 install mpi4py \
     && pip3 install --no-cache-dir -r requirements.txt \
     && pip3 install --no-cache-dir -r ci_requirements.txt \
-    && pip3 install --no-cache-dir torch==1.11.0 torchvision==0.12.0 gym==0.11.0 tensorboard
+    # && pip3 install --no-cache-dir torch==1.11.0 torchvision==0.12.0 gym==0.11.0 tensorboard
+    && pip3 install --no-cache-dir torch torchvision gym==0.11.0 tensorboard
 
 # ad-hoc layer
 # Two different libs with the same identifier (one for rapidai and the other for torch)
