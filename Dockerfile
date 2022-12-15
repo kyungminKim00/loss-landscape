@@ -66,11 +66,15 @@ RUN pip3 install --user -U setuptools \
 # Two different libs with the same identifier (one for rapidai and the other for torch)
 USER root
 RUN mv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6.old
-RUN ln -s /conda/envs/rapids/lib/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+
+RUN cp /conda/envs/rapids/lib/libstdc++.so.6.0.30 /usr/lib/x86_64-linux-gnu/
+RUN rm /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30 /usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
 # RUN echo service ssh start >> $HOME/.bashrc
 ENTRYPOINT ["service", "ssh", "start"]
 RUN echo $INGREDIENTS
 
 USER $USER
+ENTRYPOINT ["service", "ssh", "start"]
 EXPOSE 22 6006
