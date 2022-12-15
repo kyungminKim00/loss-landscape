@@ -1,3 +1,7 @@
+# RAPIDAI spec - https://rapids.ai/start.html
+# torch & torchvision spec - https://download.pytorch.org/whl/torch_stable.html
+# tensorflow spec - https://www.tensorflow.org/install/source
+
 # FROM rapidsai/rapidsai-core:22.08-cuda11.2-runtime-ubuntu18.04-py3.9
 FROM nvcr.io/nvidia/rapidsai/rapidsai-core:22.10-cuda11.5-base-ubuntu20.04-py3.9
 
@@ -21,9 +25,9 @@ RUN apt-get -q update && apt-get upgrade -y \
     vim less gcc g++ gfortran binutils openssh-server \
     git software-properties-common make
     
-RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
-    && apt-get update -y \
-    && apt-get install -y --only-upgrade libstdc++6
+# RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
+#     && apt-get update -y \
+#     && apt-get install -y --only-upgrade libstdc++6
     
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
