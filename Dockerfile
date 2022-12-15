@@ -64,9 +64,12 @@ RUN pip3 install --user -U setuptools \
     # && pip3 install --user --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cu112 
 
 # Two different libs with the same identifier (one for rapidai and the other for torch)
+USER root
 RUN mv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6.old
 RUN ln -s /conda/envs/rapids/lib/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
+USER $USER
 RUN echo service ssh start >> $HOME/.bashrc
 RUN echo $INGREDIENTS
+
 EXPOSE 22 6006
