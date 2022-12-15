@@ -39,7 +39,7 @@ RUN apt-get clean \
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
-RUN mkdir -p /var/run/sshd && chmod 755 /var/run/sshd && chmod 600 -R /etc/ssh
+RUN mkdir -p /var/run/sshd && chmod 755 /var/run/sshd && chmod 755 -R /etc/ssh
 
 ADD https://download.open-mpi.org/release/open-mpi/v4.1/$OMPI_V.tar.bz2 .
 RUN tar xf $OMPI_V.tar.bz2 \
@@ -61,9 +61,12 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user --no-cache-dir torch==1.11.0 torchvision==0.12.0 gym==0.11.0 tensorboard
-    # && pip3 install --user --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cu112 \
-    
-    
+    # && pip3 install --user --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cu112 
+
+# Two different libs with the same identifier (one for rapidai and the other for torch)
+RUN mv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6.old
+RUN ln -s /conda/envs/rapids/lib/libstdc++.so.6 /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+
 RUN echo service ssh start >> $HOME/.bashrc
 RUN echo $INGREDIENTS
 EXPOSE 22 6006
