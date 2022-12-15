@@ -65,7 +65,5 @@ RUN pip3 install --user -U setuptools \
 RUN echo service ssh start >> $HOME/.bashrc
 # RUN echo export VISIBLE=now >> $HOME/.bashrc
 EXPOSE 22
-# CMD ["/usr/sbin/sshd", "-D"]
-TAG loss-landscape:python3.9_torch1.13.0
 
-Collecting nvidia-cudnn-cu11==8.5.0.96 
+TAG loss-landscape:python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh                                                                    
