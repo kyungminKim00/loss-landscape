@@ -66,3 +66,6 @@ RUN echo service ssh start >> $HOME/.bashrc
 # RUN echo export VISIBLE=now >> $HOME/.bashrc
 EXPOSE 22
 # CMD ["/usr/sbin/sshd", "-D"]
+TAG loss-landscape:python3.9_torch1.13.0
+
+Collecting nvidia-cudnn-cu11==8.5.0.96 
