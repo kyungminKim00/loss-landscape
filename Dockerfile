@@ -20,10 +20,6 @@ RUN apt-get -q update && apt-get upgrade -y \
     vim less gcc g++ gfortran binutils openssh-server \
     git software-properties-common make
     
-# RUN add-apt-repository --yes ppa:deadsnakes/ppa \
-#     && apt-get install -y \
-#     python3.9 python3.9-dev python3.9-distutils
-
 RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
     && apt-get update -y \
     && apt-get install -y --only-upgrade libstdc++6
@@ -31,15 +27,10 @@ RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# RUN update-alternatives --install /usr/bin/python python3 /usr/bin/python3.9 1
-# RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-# RUN python3.9 get-pip.py    
-
 RUN sed -ri 's/PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
     && sed -ri 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -ri 's/^UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 RUN mkdir -p /var/run/sshd && chmod 755 /var/run/sshd && chmod 755 -R /etc/ssh
-# RUN ln -s /usr/bin/python3.9/usr/bin/python
 
 ADD https://download.open-mpi.org/release/open-mpi/v4.1/$OMPI_V.tar.bz2 .
 RUN tar xf $OMPI_V.tar.bz2 \
@@ -66,6 +57,4 @@ RUN pip3 install --user -U setuptools \
     
 RUN echo service ssh start >> $HOME/.bashrc
 RUN echo $INGREDIENTS
-EXPOSE 22
-
-
+EXPOSE 22 6006
