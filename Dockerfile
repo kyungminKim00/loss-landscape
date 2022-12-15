@@ -8,7 +8,8 @@ ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
 ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Seoul
-ENV OMPI_V=openmpi-4.1.4  
+ENV OMPI_V=openmpi-4.1.4
+ENV INGREDIENTS="python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh_server"
 
 WORKDIR $HOME
 COPY . .
@@ -60,10 +61,11 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cu112 \
-    && pip3 install --user --no-cache-dir torchvision
+    && pip3 install --user --no-cache-dir torchvision gym==0.11.0 tensorflow \
+    && pip3 install --upgrade tf_slim
     
 RUN echo service ssh start >> $HOME/.bashrc
-# RUN echo export VISIBLE=now >> $HOME/.bashrc
+RUN echo $INGREDIENTS
 EXPOSE 22
 
-TAG loss-landscape:python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh                                                                    
+
