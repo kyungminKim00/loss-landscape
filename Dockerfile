@@ -9,7 +9,7 @@ ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Seoul
 ENV OMPI_V=openmpi-4.1.4
-ENV INGREDIENTS="python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh_server"
+ENV INGREDIENTS="python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh_server-tensorflow2.11"
 
 WORKDIR $HOME
 COPY . .
