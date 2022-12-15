@@ -25,7 +25,7 @@ RUN apt-get -q update && apt-get upgrade -y \
 
 RUN add-apt-repository --yes ppa:ubuntu-toolchain-r/test \
     && apt-get update -y \
-    && apt-get install --only-upgrade libstdc++6
+    && apt-get install -y --only-upgrade libstdc++6
     
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
