@@ -4,3 +4,10 @@ matplotlib
 scipy
 scikit-learn
 seaborn
+ray
+Bottleneck
+ta
+yfinance
+pyyaml
+plotly
+mplfinance
