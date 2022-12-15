@@ -14,7 +14,8 @@ ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Seoul
 ENV OMPI_V=openmpi-4.1.4
-# tensorflow2.11 202212.15 활용 protobuf 버젼이 낮아 다른 패키지와 호환성 문제가 있어 설치 하지 못함
+
+# (202212.15) tensorflow2.11 활용 protobuf 버젼이 낮아 다른 패키지와 호환성 문제가 있어 설치 하지 못함
 ENV INGREDIENTS="rapidsai_core22.10_cuda11.5_ubuntu20.04_py3.9-torch1.13.0+cu117-cudnn8.5-openmpi4.1-openssh_server"
 
 RUN mkdir /dev_env
