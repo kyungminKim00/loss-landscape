@@ -1,4 +1,3 @@
-# FROM ubuntu:18.04
 FROM rapidsai/rapidsai-core:22.08-cuda11.2-runtime-ubuntu18.04-py3.9
 
 ENV USER dev_env
@@ -9,10 +8,11 @@ ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Seoul
 ENV OMPI_V=openmpi-4.1.4
-ENV INGREDIENTS="python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh_server-tensorflow2.11"
-
 WORKDIR $HOME
 COPY . .
+
+# tensorflow2.11 202212.15 활용 protobuf 버젼이 낮아 다른 패키지와 호환성 문제가 있어 설치 하지 못함
+ENV INGREDIENTS="python3.9-torch1.13.0-cuda11.7-cudnn8.5-openmpi4.1-openssh_server"
 
 RUN echo root:admin | chpasswd
 RUN apt-get -q update && apt-get upgrade -y \ 
@@ -52,8 +52,7 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r $HOME/requirements.txt \
     && pip3 install --user --no-cache-dir -r $HOME/ci_requirements.txt \
     && pip3 install --user --no-cache-dir torch --extra-index-url https://download.pytorch.org/whl/cu112 \
-    && pip3 install --user --no-cache-dir torchvision gym==0.11.0 tensorflow \
-    && pip3 install --upgrade tf_slim
+    && pip3 install --user --no-cache-dir torchvision gym==0.11.0 cupy-cuda115==9.5.0 tensorboard
     
 RUN echo service ssh start >> $HOME/.bashrc
 RUN echo $INGREDIENTS
