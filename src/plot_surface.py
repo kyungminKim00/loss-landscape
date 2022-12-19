@@ -120,6 +120,7 @@ def crunch(surf_file, net, w, s, d, dataloader, loss_key, acc_key, comm, rank, a
         criterion = nn.MSELoss()
 
     # Loop over all uncalculated loss values
+    inds = 5
     for count, ind in enumerate(inds):
         # Get the coordinates of the loss value being calculated
         coord = coords[count]
