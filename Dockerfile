@@ -8,7 +8,7 @@
 
 FROM nvcr.io/nvidia/rapidsai/rapidsai-core:22.10-cuda11.5-base-ubuntu20.04-py3.9
 
-ENV USER=dev
+ENV USER=kmkim
 ENV HOME=/home/$USER
 ENV MPI_DIR=/opt/ompi
 ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
@@ -56,15 +56,16 @@ RUN tar xf $OMPI_V.tar.bz2 \
     $OMPI_V $OMPI_V.tar.bz2 /tmp/*
 
 # python package layer
-RUN groupadd -r dev \
-    && useradd -r -g dev $USER \
-    && chown -R dev:dev /home/$USER
+RUN groupadd -r kmkim \
+    && useradd -r -g kmkim $USER \
+    && chown -R kmkim:kmkim /home/$USER
 USER $USER
 RUN pip3 install --user -U setuptools \
     && pip3 install --user mpi4py \
     && pip3 install --user --no-cache-dir -r requirements.txt \
     && pip3 install --user --no-cache-dir -r ci_requirements.txt \
     && pip3 install --user --no-cache-dir torch torchvision gym==0.11.0 tensorboard
+RUN chsh -s /bin/bash  && conda init --all && conda activate rapids
 
 # ad-hoc layer
 # Two different libs with the same identifier (one for rapidai and the other for torch)

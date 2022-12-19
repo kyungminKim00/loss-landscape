@@ -8,10 +8,16 @@
 
 	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 	"dockerFile": "../Dockerfile",
-
+	
 	"runArgs": [
+		"-u",
+		"$(id -u dev):$(id -g dev)",
 		"--gpus",
 		"all",
+		"-v",
+		"/etc/passwd:/etc/passwd:ro",
+		"-v",
+		"/etc/group:/etc/group:ro",
 		"-v",
 		"${localEnv:DATAHOME}/loss-landscape/trained_nets:/workspaces/loss-landscape/src/trained_nets",
 		"-v",
