@@ -175,7 +175,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='plotting loss surface')
     parser.add_argument('--mpi', '-m', action='store_true', help='use mpi')
     parser.add_argument('--cuda', '-c', action='store_true', help='use cuda')
-    parser.add_argument('--threads', default=2, type=int, help='number of threads')
+    parser.add_argument('--threads', default=4, type=int, help='number of threads')
     parser.add_argument('--ngpu', type=int, default=1, help='number of GPUs to use for each rank, useful for data parallel evaluation')
     parser.add_argument('--batch_size', default=128, type=int, help='minibatch size')
 
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     # args.plot=True
     
     ## 1D interporation
-    args.mpi=False
+    args.mpi=True
     args.cuda=True
     args.model="vgg9"
     args.x="-0.5:1.5:401"
