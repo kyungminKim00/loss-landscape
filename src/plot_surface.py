@@ -5,24 +5,27 @@
 """
 import argparse
 import copy
-import h5py
-import torch
-import time
-import socket
 import os
+import socket
 import sys
+import time
+
+import h5py
 import numpy as np
-import torchvision
+import torch
 import torch.nn as nn
+import torchvision
+
 import dataloader
 import evaluation
-import projection as proj
-import net_plotter
-import plot_2D
-import plot_1D
 import model_loader
-import scheduler
 import mpi4pytorch as mpi
+import net_plotter
+import plot_1D
+import plot_2D
+import projection as proj
+import scheduler
+
 
 def name_surface_file(args, dir_file):
     # skip if surf_file is specified in args
@@ -48,23 +51,34 @@ def name_surface_file(args, dir_file):
 
 def setup_surface_file(args, surf_file, dir_file):
     # skip if the direction file already exists
-    if os.path.exists(surf_file):
+    if not os.path.exists(surf_file):
         f = h5py.File(surf_file, 'r')
         if (args.y and 'ycoordinates' in f.keys()) or 'xcoordinates' in f.keys():
             f.close()
             print ("%s is already set up" % surf_file)
             return
-
-    f = h5py.File(surf_file, 'a')
-    f['dir_file'] = dir_file
-
-    # Create the coordinates(resolutions) at which the function is evaluated
-    xcoordinates = np.linspace(args.xmin, args.xmax, num=args.xnum)
-    f['xcoordinates'] = xcoordinates
-
-    if args.y:
-        ycoordinates = np.linspace(args.ymin, args.ymax, num=args.ynum)
-        f['ycoordinates'] = ycoordinates
+        
+    try:
+        
+        f = h5py.File(surf_file, 'a')
+        f['dir_file'] = dir_file
+    except OSError:
+        pass
+    
+    try:
+        # Create the coordinates(resolutions) at which the function is evaluated
+        xcoordinates = np.linspace(args.xmin, args.xmax, num=int(args.xnum))
+        f['xcoordinates'] = xcoordinates
+    except OSError:
+        pass
+    
+    try:
+        if args.y:
+            ycoordinates = np.linspace(args.ymin, args.ymax, num=int(args.ynum))
+            f['ycoordinates'] = ycoordinates
+    except OSError:
+        pass
+    
     f.close()
 
     return surf_file
@@ -207,6 +221,28 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     torch.manual_seed(123)
+    
+    ## Loss_curve
+    # args.x='-1:1:51'
+    # args.model='vgg9'
+    # args.model_file="./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0_save_epoch=1/model_300.t7"
+    # args.mpi
+    # args.cuda
+    # args.dir_type="weights"
+    # args.xnorm="filter"
+    # args.xignore="biasbn"
+    # args.plot=True
+    
+    ## 1D interporation
+    args.mpi=False
+    args.cuda=True
+    args.model="vgg9"
+    args.x="-0.5:1.5:401"
+    args.dir_type="states"
+    args.model_file="./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0_save_epoch=1/model_300.t7"
+    args.model_file2="./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=8192_wd=0.0_save_epoch=1/model_300.t7"
+    args.plot=True
+    
     #--------------------------------------------------------------------------
     # Environment setup
     #--------------------------------------------------------------------------

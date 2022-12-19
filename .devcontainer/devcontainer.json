@@ -39,9 +39,9 @@
 	"settings": { 
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
-		"python.formatting.blackPath": "/usr/local/bin/black",
+		"python.formatting.blackPath": "/opt/conda/envs/rapids/bin/black",
 		"python.linting.mypyPath": "/usr/local/bin/mypy",
-		"python.linting.pylintPath": "/usr/local/bin/pylint",
+		"python.linting.pylintPath": "/opt/conda/envs/rapids/binsxx/pylint",
 		"python.envFile": "${workspaceFolder}/.vscode/.env",
 		"python.formatting.provider": "black",
 		"python.linting.mypyEnabled": true,
@@ -78,8 +78,8 @@
 			"editor.tabSize": 4,
 			"github.gitProtocol": "ssh",
 			"files.autoSave": "onFocusChange",
-			"python.analysis.inlayHints.functionReturnTypes": true,
-			"python.analysis.inlayHints.variableTypes": true
+			"python.analysis.inlayHints.functionReturnTypes": false,
+			"python.analysis.inlayHints.variableTypes": false
         
 	},
 
