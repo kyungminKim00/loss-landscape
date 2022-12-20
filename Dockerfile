@@ -56,6 +56,7 @@ RUN tar xf $OMPI_V.tar.bz2 \
     $OMPI_V $OMPI_V.tar.bz2 /tmp/*
 
 # python package layer
+# $(id -u kmkim) -> 1000
 RUN groupadd -r kmkim \
     && useradd -r -u 1000 -g kmkim $USER \
     && chown -R kmkim:kmkim /home/$USER
