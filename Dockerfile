@@ -65,7 +65,6 @@ RUN pip3 install --user -U setuptools \
     && pip3 install --user --no-cache-dir -r requirements.txt \
     && pip3 install --user --no-cache-dir -r ci_requirements.txt \
     && pip3 install --user --no-cache-dir torch torchvision gym==0.11.0 tensorboard
-RUN conda init --all && conda activate rapids
 
 # ad-hoc layer
 # Two different libs with the same identifier (one for rapidai and the other for torch)
