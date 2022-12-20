@@ -22,7 +22,7 @@ import model_loader
 import scheduler
 import projection as proj
 import hess_vec_prod
-from plot_surface import name_surface_file, setup_surface_file
+from script_plot_surface import name_surface_file, setup_surface_file
 
 
 def crunch_hessian_eigs(surf_file, net, w, s, d, dataloader, comm, rank, args):

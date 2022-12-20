@@ -2,14 +2,15 @@
     2D plotting funtions
 """
 
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import pyplot as plt
-from matplotlib import cm
-import h5py
 import argparse
-import numpy as np
 from os.path import exists
+
+import h5py
+import numpy as np
 import seaborn as sns
+from matplotlib import cm
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def plot_2d_contour(surf_file, surf_name='train_loss', vmin=0.1, vmax=10, vlevel=0.5, show=False):
@@ -67,15 +68,19 @@ def plot_2d_contour(surf_file, surf_name='train_loss', vmin=0.1, vmax=10, vlevel
     # --------------------------------------------------------------------
     # Plot 3D surface
     # --------------------------------------------------------------------
-    fig = plt.figure()
-    ax = Axes3D(fig)
+    # fig = plt.figure()
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+    # ax = Axes3D(fig)
     surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    # ax.set_zlim(vmin, vmax)
     fig.colorbar(surf, shrink=0.5, aspect=5)
+    plt.tight_layout()
     fig.savefig(surf_file + '_' + surf_name + '_3dsurface.pdf', dpi=300,
                 bbox_inches='tight', format='pdf')
 
     f.close()
     if show: plt.show()
+    
 
 
 def plot_trajectory(proj_file, dir_file, show=False):

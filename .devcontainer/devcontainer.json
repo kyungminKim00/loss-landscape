@@ -46,9 +46,9 @@
 	"settings": { 
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
-		"python.formatting.blackPath": "/opt/conda/envs/rapids/bin/black",
+		"python.formatting.blackPath": "/home/kmkim/.local/bin/black",
 		"python.linting.mypyPath": "/usr/local/bin/mypy",
-		"python.linting.pylintPath": "/opt/conda/envs/rapids/binsxx/pylint",
+		"python.linting.pylintPath": "/home/kmkim/.local/binsxx/pylint",
 		"python.envFile": "${workspaceFolder}/.vscode/.env",
 		"python.formatting.provider": "black",
 		"python.linting.mypyEnabled": true,

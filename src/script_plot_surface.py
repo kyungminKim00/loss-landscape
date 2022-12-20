@@ -335,27 +335,41 @@ if __name__ == "__main__":
 
     torch.manual_seed(123)
 
-    ## Loss_curve
+    # # Loss_curve - run test done
     # args.x='-1:1:51'
     # args.model='vgg9'
     # args.model_file="./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0_save_epoch=1/model_300.t7"
-    # args.mpi
-    # args.cuda
+    # args.mpi=True
+    # args.cuda=True
     # args.dir_type="weights"
     # args.xnorm="filter"
     # args.xignore="biasbn"
     # args.plot=True
-
-    ## 1D interporation
+    
+    # ## 1D interporation - run test done
+    # args.mpi = True
+    # args.cuda = True
+    # args.model = "vgg9"
+    # args.x = "-0.5:1.5:401"
+    # args.dir_type = "states"
+    # args.model_file = "./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0_save_epoch=1/model_300.t7"
+    # args.model_file2 = "./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=8192_wd=0.0_save_epoch=1/model_300.t7"
+    # args.plot = True
+    
+    ## 2D conture
     args.mpi = True
     args.cuda = True
     args.model = "vgg9"
-    args.x = "-0.5:1.5:401"
-    args.dir_type = "states"
-    args.model_file = "./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0_save_epoch=1/model_300.t7"
-    args.model_file2 = "./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=8192_wd=0.0_save_epoch=1/model_300.t7"
+    args.x = "-1:1:51"
+    args.y = "-1:1:51"
+    args.dir_type = "weights"
+    args.model_file = "./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0005_save_epoch=1/model_300.t7"
+    args.xnorm="filter"
+    args.xignore="biasbn"
+    args.yignore="biasbn"
+    args.ynorm="filter"
     args.plot = True
-
+    
     # --------------------------------------------------------------------------
     # Environment setup
     # --------------------------------------------------------------------------
