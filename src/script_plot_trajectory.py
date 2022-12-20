@@ -2,31 +2,32 @@
     Plot the optimization path in the space spanned by principle directions.
 """
 
-import numpy as np
-import torch
+import argparse
 import copy
 import math
-import h5py
 import os
-import argparse
+
+import h5py
+import numpy as np
+import torch
+
 import model_loader
 import net_plotter
-from projection import setup_PCA_directions, project_trajectory
 import plot_2D
-
+from projection import project_trajectory, setup_PCA_directions
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Plot optimization trajectory')
     parser.add_argument('--dataset', default='cifar10', help='dataset')
-    parser.add_argument('--model', default='resnet56', help='trained models')
-    parser.add_argument('--model_folder', default='', help='folders for models to be projected')
+    parser.add_argument('--model', default='vgg9', help='trained models')
+    parser.add_argument('--model_folder', default='./trained_nets/cifar10/vgg9/vgg9_sgd_lr=0.1_bs=128_wd=0.0005_save_epoch=1', help='folders for models to be projected')
     parser.add_argument('--dir_type', default='weights',
         help="""direction type: weights (all weights except bias and BN paras) |
                                 states (include BN.running_mean/var)""")
-    parser.add_argument('--ignore', default='', help='ignore bias and BN paras: biasbn (no bias or bn)')
+    parser.add_argument('--ignore', default='biasbn', help='ignore bias and BN paras: biasbn (no bias or bn)')
     parser.add_argument('--prefix', default='model_', help='prefix for the checkpint model')
     parser.add_argument('--suffix', default='.t7', help='prefix for the checkpint model')
-    parser.add_argument('--start_epoch', default=0, type=int, help='min index of epochs')
+    parser.add_argument('--start_epoch', default=300, type=int, help='min index of epochs')
     parser.add_argument('--max_epoch', default=300, type=int, help='max number of epochs')
     parser.add_argument('--save_epoch', default=1, type=int, help='save models every few epochs')
     parser.add_argument('--dir_file', default='', help='load the direction file for projection')
