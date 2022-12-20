@@ -57,7 +57,7 @@ RUN tar xf $OMPI_V.tar.bz2 \
 
 # python package layer
 RUN groupadd -r kmkim \
-    && useradd -r -g kmkim $USER \
+    && useradd -r -u 1000 -g kmkim $USER \
     && chown -R kmkim:kmkim /home/$USER
 USER $USER
 RUN pip3 install --user -U setuptools \
@@ -74,5 +74,6 @@ RUN cp /conda/envs/rapids/lib/libstdc++.so.6.0.30 /usr/lib/x86_64-linux-gnu/ \
     && rm libstdc++.so.6 && ln -s libstdc++.so.6.0.30 libstdc++.so.6
 WORKDIR /dev_env
 
+USER $USER
 EXPOSE 22 6006
 CMD ["service", "ssh", "start"]
